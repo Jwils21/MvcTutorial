@@ -1,0 +1,31 @@
+namespace MvcTutorial.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class AddedGrades : DbMigration
+    {
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.Grades",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ClassName = c.String(),
+                        StudentId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Students", t => t.StudentId, cascadeDelete: true)
+                .Index(t => t.StudentId);
+            
+        }
+        
+        public override void Down()
+        {
+            DropForeignKey("dbo.Grades", "StudentId", "dbo.Students");
+            DropIndex("dbo.Grades", new[] { "StudentId" });
+            DropTable("dbo.Grades");
+        }
+    }
+}

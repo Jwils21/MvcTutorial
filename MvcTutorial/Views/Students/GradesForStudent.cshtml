@@ -1,0 +1,13 @@
+﻿@model MvcTutorial.ViewModels.ClassesForStudent
+@{
+    ViewBag.Title = "GradesForStudent";
+}
+
+<h2>GradesForStudent</h2>
+
+<h3> @Model.Student.Name</h3>
+
+@foreach(var grade in Model.Grades) {
+    <p>@grade.ClassName</p>
+}
+
